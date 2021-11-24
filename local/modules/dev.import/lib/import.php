@@ -2,6 +2,7 @@
 namespace  Dev\Import;
 
 use Bitrix\Catalog\Model\Price;
+use Bitrix\Catalog\Model\Product;
 use Bitrix\Main\Loader;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/vendor/autoload.php");
@@ -52,7 +53,13 @@ class Import{
                 'IBLOCK_SECTION_ID' => $section_id
             ]);
             if (!$product_id) continue;
-    
+            
+            $result0 = Product::add([
+                'ID' => $product_id,
+                'AVAILABLE' => 'Y',
+                'QUANTITY_TRACE' => 'N'
+            ]);
+            
             $result1 = Price::add([
                 'PRODUCT_ID' => $product_id,
                 'CATALOG_GROUP_ID' => 1,
