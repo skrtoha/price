@@ -57,7 +57,8 @@ class Import{
             $result0 = Product::add([
                 'ID' => $product_id,
                 'AVAILABLE' => 'Y',
-                'QUANTITY_TRACE' => 'N'
+                'QUANTITY_TRACE' => 'N',
+                'CAN_BUY_ZERO' => 'Y'
             ]);
             
             $result1 = Price::add([
