@@ -35,14 +35,16 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 	"USE_COMPARE" => "N",
 	"PRICE_CODE" => array(
 		0 => "BASE",
+        1 => "OPT-1",
+        2 => "OPT-2"
 	),
-	"USE_PRICE_COUNT" => "N",
+	"USE_PRICE_COUNT" => "Y",
 	"SHOW_PRICE_COUNT" => "1",
 	"PRICE_VAT_INCLUDE" => "Y",
 	"PRICE_VAT_SHOW_VALUE" => "N",
 	"PRODUCT_PROPERTIES" => array(
 	),
-	"USE_PRODUCT_QUANTITY" => "Y",
+	"USE_PRODUCT_QUANTITY" => "N",
 	"CONVERT_CURRENCY" => "N",
 	"QUANTITY_FLOAT" => "N",
 	"OFFERS_CART_PROPERTIES" => array(
