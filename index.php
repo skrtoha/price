@@ -97,7 +97,9 @@ $trendFilter = array('PROPERTY_TREND' => '4');
 		"ACTION_VARIABLE" => "action",
 		"PRODUCT_ID_VARIABLE" => "id",
 		"PRICE_CODE" => array(
-			0 => "BASE",
+            0 => "BASE",
+            1 => "OPT-1",
+            2 => "OPT-2"
 		),
 		"USE_PRICE_COUNT" => "N",
 		"SHOW_PRICE_COUNT" => "1",
