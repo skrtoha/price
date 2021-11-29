@@ -32,7 +32,7 @@
 <?endif?>
 
 <div class="mb-5">
-	<h3>Мы в соцсетях</h3>
+<!--	<h3>Мы в соцсетях</h3>-->
 	<?$APPLICATION->IncludeComponent(
 		"bitrix:main.include",
 		"",
