@@ -1,1 +1,1 @@
-<img src="/include/logo.png"  srcset="/include/logo_retina.png" />
+<img src="/include/akvaplast.GIF" style="height: 200px">
