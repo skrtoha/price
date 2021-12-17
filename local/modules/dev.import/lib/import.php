@@ -21,6 +21,7 @@ class Import{
     
     public function execute(){
         $data = [];
+        $parsedProducts = [];
         foreach ($this->iterator as $iterator) {
             $row = array();
             $cellIterator = $iterator->getCellIterator();
@@ -73,19 +74,29 @@ class Import{
                 'CODE' => $row[1],
                 'IBLOCK_SECTION_ID' => $section_id
             ]);
+            if ($product_id){
+                Product::add([
+                    'ID' => $product_id,
+                    'AVAILABLE' => 'Y',
+                    'QUANTITY_TRACE' => 'N',
+                    'CAN_BUY_ZERO' => 'Y'
+                ]);
+            }
+            if ($iblock->LAST_ERROR == 'Элемент с таким символьным кодом уже существует.<br>'){
+                $result = \CIBlockElement::GetList('', [
+                    'CODE' => $row[1]
+                ])->Fetch();
+                $product_id = $result['ID'];
+            }
+            
             if (!$product_id) continue;
-    
-            $result0 = Product::add([
-                'ID' => $product_id,
-                'AVAILABLE' => 'Y',
-                'QUANTITY_TRACE' => 'N',
-                'CAN_BUY_ZERO' => 'Y'
-            ]);
+            
+            $parsedProducts[] = $product_id;
     
             $result1 = Price::add([
                 'PRODUCT_ID' => $product_id,
                 'CATALOG_GROUP_ID' => 1,
-                'PRICE' => $row[7],
+                'PRICE' => $row[8],
                 'CURRENCY' => 'RUB'
             ]);
             $result2 = Price::add([
@@ -97,10 +108,20 @@ class Import{
             $result3 = Price::add([
                 'PRODUCT_ID' => $product_id,
                 'CATALOG_GROUP_ID' => 3,
-                'PRICE' => $row[8],
+                'PRICE' => $row[7],
                 'CURRENCY' => 'RUB'
             ]);
         }
+        
+        $result = \CIBlockElement::GetList('', [
+            '!ID' => $parsedProducts
+        ]);
+        while($row = $result->Fetch()) $iblock->Update($row['ID'], ['ACTIVE' => 'N']);
+        
+        $result = \CIBlockElement::GetList('', [
+            'ID' => $parsedProducts
+        ]);
+        while($row = $result->Fetch()) $iblock->Update($row['ID'], ['ACTIVE' => 'Y']);
     }
     
     public static function isSection($row){
